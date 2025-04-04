@@ -1,5 +1,6 @@
 import Product from "../models/product.model.js"
 import { v2 as cloudinary } from "cloudinary";
+import { notifySubscribers } from "../controllers/email.controller.js";
 
 export const getAllProducts = async (req, res) => {
     try {
@@ -46,6 +47,12 @@ export const createProduct = async (req, res) => {
             images: imageUrls, // Make sure your model accepts this as an array
             category
         });
+
+        if (imageUrls.length > 0) {
+            await notifySubscribers(name, imageUrls[0], product._id);
+          } else {
+            await notifySubscribers(name, '', product._id);
+          }
 
         res.status(201).json({
             message: "Product created successfully",
