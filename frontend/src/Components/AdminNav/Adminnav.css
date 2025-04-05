@@ -1,0 +1,27 @@
+.topbar-outer {
+    background-color: #2c382f;
+    display: flex;
+    width: 100%;
+    border-bottom: 0.5px solid #fef2c3;
+}
+
+.topbar-main {
+    display: flex;
+    justify-content: space-between; /* Pushes items to far ends */
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+}
+
+.topbar-link-wrapper {
+    padding-right: 20px;
+    margin-left: auto; /* Moves the links to the right */
+    display: flex;
+    gap: 15px; /* Spacing between links */
+}
+
+.topbar-link-wrapper a {
+    text-decoration: none;
+    color: #fef2c3;
+    font-weight: bold;
+}

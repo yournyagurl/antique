@@ -1,0 +1,27 @@
+.order-item{
+    display: grid;
+    grid-template-columns:2fr 0.5fr 0.5fr 0.5fr 1fr;
+    align-items: start;
+    border: 1px solid #a9a9a9;
+    margin: 20px 10px;
+    color: black;
+}
+
+h3{
+    color: #2c382f;
+    font-size: 20px;
+    margin: 10px 10px
+}
+
+.order-item-product .order-item-name p{
+    font-weight: 600;
+}
+
+.order-item-name {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.order-item-address {
+    margin-bottom: 20px;
+}

@@ -1,17 +1,29 @@
-import React, { use, useState } from 'react';
+import React, {  useState } from 'react';
 import { assets } from '../../assets/assets.js';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import { userUserStore } from '../../stores/useUserStore.js';
+import { useCartStore } from '../../stores/useCartStore.js';
 
 const Navbar = () => {
   const {user, logout} = userUserStore();
-  const isAdmin = user?.role === 'admin';
+  let isAdmin = false;
+
+if (user && user.role && user.role.toLowerCase() === 'admin') {
+  isAdmin = true;
+}
+
+
+  {console.log('User info:', user)}
+{console.log('Is admin:', isAdmin)}
+
+
   const [menu, setMenu] = useState('Home');
   const [inventoryPage, setInventoryPage] = useState('fullCollection');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [inventoryDropdownOpen, setInventoryDropdownOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const { calculateTotals } = useCartStore();
 
   const toggleProfileDropdown = () => {
     setProfileDropdownOpen((prev) => !prev);
@@ -52,7 +64,7 @@ const Navbar = () => {
                       <hr />
                       <Link onClick={logout}>Logout</Link>
                       <hr />
-                      {isAdmin && <Link to="/admin">Admin</Link>}
+                      {isAdmin && <Link to="/secret-dashboard">Admin</Link>}
                     </div>
                   )}
                 </div>
@@ -62,7 +74,7 @@ const Navbar = () => {
             <span className="cart-link">
               <Link to="/cart">
                 <img src={assets.cart} alt="Cart" />
-                {/* {totalCartItems > 0 && <span className="cart-indicator"></span>} */}
+                {calculateTotals > 0 && <span className="cart-indicator"></span>}
               </Link>
             </span>
           </div>

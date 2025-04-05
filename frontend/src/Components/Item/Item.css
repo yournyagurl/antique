@@ -1,0 +1,142 @@
+.item {
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+
+.item p{
+    margin: 6px 0px;
+    font-size: 20px;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #fef2c3;
+}
+
+.item-prices {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+
+.item-price-new{
+    color: #fef2c3;;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.item-price-old{
+    color: #fef2c3;;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: line-through;
+}
+
+.item:hover {
+    transform: scale(1.05);
+    transition: transform 0.6s ease, box-shadow 0.6s ease;
+  }
+  
+
+@media (max-width: 1280px) {
+    .item{
+        width: 300px;
+        font-size: 14px;
+    }
+    
+    .item img{
+        width: 300px;
+    }
+
+    .item-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: #fef2c3;
+    }
+    
+    .item-prices {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+    }
+    
+}
+
+@media (max-width: 1024px) {
+    .item{
+        width: 600px;
+        font-size: 14px;
+    }
+    
+    .item img{
+        width: 400px;
+    }
+
+    .item-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .item-prices {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+    }
+    
+}
+
+@media (max-width: 863px) {
+    .item{
+        width: 180px;
+        font-size: 14px;
+    }
+    
+    .item img{
+        width: 400px;
+    }
+
+    .item-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: #fef2c3;
+    }
+    
+    .item-info p {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: #fef2c3;
+    }
+    .item-prices {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+    }
+    
+}

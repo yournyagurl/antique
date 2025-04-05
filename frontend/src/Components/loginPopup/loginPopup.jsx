@@ -4,7 +4,7 @@ import { assets } from '../../assets/assets.js'; // Ensure you have the correct 
 import { userUserStore } from '../../stores/useUserStore.js';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 
-const LoginPopup = ({ setShowLogin }) => {
+const LoginPopup = () => {
   const [currentView, setCurrentView] = useState('LOGIN');
   const [data, setData] = useState({
     email: '',
@@ -12,7 +12,7 @@ const LoginPopup = ({ setShowLogin }) => {
     name: '', // This will be used for signup
   });
 
-  const { signup, user, login } = userUserStore();
+  const { signup, login } = userUserStore();
   const navigate = useNavigate(); // Initialize navigate
 
   const onChangeHandler = (e) => {

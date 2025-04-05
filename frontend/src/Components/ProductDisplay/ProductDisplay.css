@@ -1,0 +1,278 @@
+.productdisplay {
+    display: flex;
+    margin: 0px 170px;
+    color: #fef2c3;
+}
+
+.productdisplay-left {
+    display: flex;
+    gap: 10px;
+}
+
+.productimage-img-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.productimage-img-list img {
+    height: 163px;
+    object-fit: cover;
+}
+
+.productdisplay-main-img {
+    width: 586px;
+    height: 700px;
+}
+
+.productdisplay-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0px 30px;
+}
+
+.productdisplay-right h1 {
+    font-size: 80px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.detailsbox-navigator {
+    display: flex;
+    justify-content: start;
+    gap: 5px;
+    font-family: 'Cormorant Unicase', serif;
+    width: 350px;
+}
+
+.detailsbox-navigator button {
+    font-family: 'Cormorant Unicase', serif;
+}
+
+.detailsbox-nav-box, .detailsbox-nav-box-fade {
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.detailsbox-nav-box {
+    background-color: #1b2b1b; /* Gold */
+    color: #fef2c3;
+    border: 1px solid #fef2c3;
+
+}
+
+.detailsbox-nav-box-fade {
+    background-color: transparent;
+    color: #fef2c3;
+    border: 1px solid #fef2c3;
+}
+
+.detailsbox-nav-box:hover, .detailsbox-nav-box-fade:hover {
+    background-color: #fef2c3;
+    color: #1b2b1b;
+}
+
+/* Active State */
+.detailsbox-nav-box.active, .detailsbox-nav-box-fade.active {
+    background-color: #fef2c3;
+    color: #1b2b1b;
+
+    box-shadow: 0px 0px 10px rgba(212, 175, 55, 0.5);
+}
+
+.detailsbox-details {
+    min-height: 250px; /* Adjust as needed */
+    border: #1b2b1b solid 1px;
+    padding: 20px;
+    width: 583px;
+}
+
+.enquiry-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.enquiry-box input {
+    width: 100%;
+}
+.enquiry-box textarea {
+    width: 100%; /* Message box takes full width */
+}
+
+.submit-btn, .cancel-btn {
+    width: 100%;
+    background: #2c382f;
+    color: #fef2c3;
+    text-decoration: underline; 
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.submit-btn:hover, .cancel-btn:hover {
+    background: #fef2c3;
+    color: #1b2b1b;
+}
+
+.productdisplay-right-bottom button{
+    padding: 10px;
+    border: #1b2b1b solid 1px;
+    background-color: #fef2c3;
+    color: #1b2b1b;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    font-family: 'Cormorant Unicase', serif;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.productprice{
+    font-size: 40px;
+}
+
+@media (max-width: 1280px) {
+    .productdisplay {
+        margin: 0px 50px;
+    }
+
+    .productdisplay-left {
+        gap: 10px;
+    }
+
+    .productimage-img-list {
+        gap: 10px;
+    }
+
+    .productimage-img-list img {
+        height: 120px;
+    }
+
+    .productdisplay-main-img {
+        width: auto;
+        height: 510px;
+    }
+
+    .productdisplay-right {
+        margin: 0px 30px;
+    }
+
+    .productdisplay-right h1 {
+        font-size: 40px;
+    }
+
+    .detailsbox-details {
+        width: 400px;
+    }    
+
+    .productdisplay-right-bottom button{
+        font-size: 16px;
+    }
+
+    
+}
+
+@media (max-width: 1024px) {
+    .productdisplay {
+        margin: 0px 50px;
+    }
+
+    .productdisplay-left {
+        gap: 10px;
+    }
+
+    .productimage-img-list {
+        gap: 10px;
+    }
+
+    .productimage-img-list img {
+        height: 120px;
+    }
+
+    .productdisplay-main-img {
+        width: auto;
+        height: 510px;
+    }
+
+    .productdisplay-right {
+        margin: 0px 30px;
+    }
+
+    .productdisplay-right h1 {
+        font-size: 40px;
+    }
+
+    .detailsbox-details {
+        width: 330px;
+    }    
+
+    .productdisplay-right-bottom button{
+        font-size: 16px;
+    }
+
+    
+}
+
+@media (max-width: 863px) {
+    .productdisplay {
+        margin: 0px 0px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .productdisplay-left {
+        gap: 10px;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .productimage-img-list {
+        flex-direction: row;
+        gap: 13px;
+    }
+
+    .productimage-img-list img {
+        height: 120px;
+    }
+
+    .productdisplay-main-img {
+        width: auto;
+        height: 400px;
+    }
+
+    .productdisplay-right {
+        margin: 20px;
+    }
+    .productdisplay-right h1{
+        font-size: 30px;
+
+    }
+
+    .detailsbox-nav-box  {
+        width: 100px;
+        padding: 0px 0px;
+        font-size: 12px;
+    }
+    
+    .detailsbox-nav-box-fade  {
+        width: 100px;
+        padding: 0px 0px;
+        font-size: 14px;
+    }
+
+    .detailsbox-details {
+        width: 95%;
+        padding: 10px 10px;
+        font-size: 14px;
+    }
+
+    .productdisplay-right-bottom button{
+        font-size: 14px;
+    }
+}

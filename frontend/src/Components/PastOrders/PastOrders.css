@@ -1,0 +1,23 @@
+.order-item{
+    display: grid;
+    grid-template-columns:2fr 0.5fr 0.5fr 0.5fr 1fr;
+    align-items: start;
+    gap: 30px;
+    border: 1px solid #a9a9a9;
+    padding: 20px;
+    margin: 40px 10px;
+    color: black;
+}
+            
+.order-item-product .order-item-name p{
+    font-weight: 600;
+}
+ 
+.order-item-name {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.order-item-address {
+    margin-bottom: 20px;
+}

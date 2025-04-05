@@ -61,14 +61,14 @@ export const sendEnquiry = async (req, res) => {
   }
 
   try {
-    const newEnquiry = new enquiryModel({ firstName, lastName, email, phone, postcode, message });
+    const newEnquiry = new enquiryModel({ firstName, lastName, email, phone, postcode, message, productId });
     await newEnquiry.save();
 
     // Email to customer
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
-      subject: 'Enquiry Received',
+      subject: 'Enquiry Received For Product `${product._id}`',
       html: `
         Hello ${firstName},<br/><br/>
         Thank you for reaching out!<br/><br/>
@@ -83,7 +83,7 @@ export const sendEnquiry = async (req, res) => {
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_USER,
       subject: 'New Enquiry Received',
-      text: `New enquiry received from ${firstName} ${lastName}.
+      text: `New enquiry received from ${firstName} ${lastName} for product ${product._id}.
 Email: ${email}
 Phone: ${phone}
 Postcode: ${postcode}

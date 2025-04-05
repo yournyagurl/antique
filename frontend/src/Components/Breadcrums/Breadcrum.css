@@ -1,0 +1,52 @@
+.breadcrums {
+    display: flex; 
+    align-items: center;  /* Ensures vertical alignment */
+    gap: 5px; /* Adds spacing between items */
+    font-weight: 600;
+    margin: 20px 170px;
+    font-size: 16px;
+    color: #fef2c3;
+}
+
+.breadcrums img {
+    width: 14px; /* Adjust size */
+    height: 14px;
+    object-fit: contain;
+    vertical-align: middle; /* Extra alignment fix */
+}
+
+
+@media (max-width: 1280px) {
+    .breadcrums {
+        margin: 20px 50px;
+        font-size: 14px;
+    }
+
+
+}
+
+@media (max-width: 1024px) {
+    .breadcrums {
+        margin: 20px 30px;
+        font-size: 13px;
+    }
+
+
+}
+
+@media (max-width:800px) {
+    .breadcrums {
+        margin: 20px 10px;
+        font-size: 12px;
+    }
+
+
+}
+
+@media (max-width:500px) {
+    .breadcrums {
+        font-size: 10px;
+    }
+
+
+}

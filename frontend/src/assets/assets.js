@@ -14,6 +14,11 @@ import orders from './icons8-shopping-bag-48.png'
 import logout from './icons8-logout-48.png'
 import admin from './icons8-tool-48.png'
 import signin from './icons8-add-user-male-24.png'
+import upload from './icons8-add-webpage-64.png';
+import deleteIcon from './icons8-delete-30.png'; // Renamed to avoid conflicts
+import list from './icons8-list-50.png';
+import order_icon from './icons8-logistics-32.png'
+import past_orders from './icons8-complete-50.png';
 
 
 
@@ -33,5 +38,10 @@ export const assets = {
     orders,
     logout,
     admin,
-    signin
+    signin,
+    upload,
+    deleteIcon, // Using a different key name
+    list,
+    order_icon,
+    past_orders,
 }

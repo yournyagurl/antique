@@ -8,10 +8,14 @@ import Footer from './Components/Footer/Footer';
 import { userUserStore } from './stores/useUserStore';
 import Admin from './pages/Admin';
 import { Navigate } from 'react-router-dom';
+import AddProduct from './Components/AddProduct/AddProduct';
+import Shop from './pages/Shop';
+import Product from './pages/Product';
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
-  const user = userUserStore()
+  const { user } = userUserStore();
+
 
   return (
     <>
@@ -25,6 +29,15 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPopup />} />
           <Route path='/secret-dashboard' element = {user?.role === "admin" ? <Admin/> : <Navigate to="/login"/>} />
+          <Route path = '/add' element={<AddProduct />} />
+          <Route path='/shop' element={<Shop />} />
+          <Route path='/shop/furniture' element={<Shop category="Furniture" />} />
+          <Route path='/shop/collectibles' element={<Shop category="Collectibles" />} />
+          <Route path='/shop/arts' element={<Shop category="arts" />} />
+          <Route path='/shop/miscellaneous' element={<Shop category="Miscellaneous" />} />
+          <Route path="/product" element={<Product />} /> {/* This can be the product listing page */}
+          <Route path="/product/:productId" element={<Product />} /> {/* This will be for the product detail page */}
+          
         </Routes>
         <Footer />
       </div>

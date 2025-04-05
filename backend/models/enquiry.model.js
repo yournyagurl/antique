@@ -20,7 +20,8 @@ const enquirySchema = new mongoose.Schema({
     created_at: {
         type: Date,
         default: Date.now
-    }
+    },
+    productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
 })
 
 const enquiryModel = mongoose.model("Enquiry", enquirySchema);

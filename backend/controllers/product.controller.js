@@ -18,7 +18,7 @@ export const getAllProducts = async (req, res) => {
 }
 
 export const newCollection = async (req, res) => {
-    let products = await ProductModel.find({});
+    let products = await Product.find({});
     let newCollection = products.slice(1).slice(-4);
     console.log("new collection fetched");
     res.send(newCollection);
@@ -36,7 +36,7 @@ export const createProduct = async (req, res) => {
       }
   
       try {
-        const { name, description, price, category } = req.body;
+        const { name, description, price, category, deliveryPrice } = req.body;
   
         // Array to hold image URLs from Cloudinary
         let imageUrls = [];
@@ -75,6 +75,7 @@ export const createProduct = async (req, res) => {
           price,
           image: imageUrls, // Store the image URLs from Cloudinary in the database
           category,
+          deliveryPrice
         });
   
         // Notify subscribers about the new product
