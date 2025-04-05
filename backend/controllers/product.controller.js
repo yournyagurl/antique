@@ -1,6 +1,7 @@
 import Product from "../models/product.model.js"
-import { v2 as cloudinary } from "cloudinary";
 import { notifySubscribers } from "../controllers/email.controller.js";
+import multer from "multer";
+import cloudinary from "../lib/cloudinary.js";
 
 export const getAllProducts = async (req, res) => {
     try {
@@ -23,47 +24,75 @@ export const newCollection = async (req, res) => {
     res.send(newCollection);
 }
 
+
+const storage = multer.memoryStorage(); // Store files in memory (you can also use diskStorage)
+const upload = multer({ storage }).array('images'); // 'images' is the field name for the file input
 export const createProduct = async (req, res) => {
-    try {
-        const { name, description, price, images = [], category } = req.body;
-
+    // Use multer to handle the file upload
+    upload(req, res, async (err) => {
+      if (err) {
+        console.error("Multer upload error:", err);
+        return res.status(500).json({ message: "Error uploading files", error: err.message });
+      }
+  
+      try {
+        const { name, description, price, category } = req.body;
+  
+        // Array to hold image URLs from Cloudinary
         let imageUrls = [];
-
-        if (Array.isArray(images) && images.length > 0) {
-            const uploadPromises = images.map(img =>
-                cloudinary.uploader.upload(img, {
-                    folder: "products"
-                })
-            );
-
-            const uploadedResponses = await Promise.all(uploadPromises);
-            imageUrls = uploadedResponses.map(resp => resp.secure_url);
+  
+        // Check if files were uploaded
+        if (req.files && req.files.length > 0) {
+          const uploadPromises = req.files.map((file) =>
+            new Promise((resolve, reject) => {
+              // Upload each file to Cloudinary
+              cloudinary.uploader.upload_stream(
+                {
+                  folder: 'products', // Cloudinary folder where images will be stored
+                  public_id: file.originalname.replace(/\s+/g, "_"), // Optional: Set a custom public_id
+                  resource_type: 'auto', // Automatically detect file type (image, video, etc.)
+                },
+                (error, result) => {
+                  if (error) {
+                    reject(error);
+                  } else {
+                    imageUrls.push(result.secure_url); // Store the secure URL of the uploaded image
+                    resolve(result);
+                  }
+                }
+              ).end(file.buffer); // End the stream and start uploading the file
+            })
+          );
+  
+          // Wait for all uploads to finish
+          await Promise.all(uploadPromises);
         }
-
+  
+        // Create a new product with the Cloudinary image URLs
         const product = await Product.create({
-            name,
-            description,
-            price,
-            images: imageUrls, // Make sure your model accepts this as an array
-            category
+          name,
+          description,
+          price,
+          image: imageUrls, // Store the image URLs from Cloudinary in the database
+          category,
         });
+  
+        // Notify subscribers about the new product
 
-        if (imageUrls.length > 0) {
-            await notifySubscribers(name, imageUrls[0], product._id);
-          } else {
-            await notifySubscribers(name, '', product._id);
-          }
+        await notifySubscribers(product);
+
 
         res.status(201).json({
-            message: "Product created successfully",
-            product
+          message: "Product created successfully",
+          product,
         });
-
-    } catch (error) {
+      } catch (error) {
         console.error("Create product error:", error);
-        res.status(500).json({ message: "Something went wrong" });
-    }
-}
+        res.status(500).json({ message: "Something went wrong", error: error.message });
+      }
+    });
+  };
+  
 
 
 export const deleteProduct = async (req, res) => {

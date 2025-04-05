@@ -9,7 +9,7 @@ router.get("/", protectRoute, adminRoute, getAllProducts)
 router.get("/newcollection", newCollection)
 router.post("/createproduct", protectRoute, adminRoute, createProduct);
 router.delete("/:id", protectRoute, adminRoute, deleteProduct);
-router.get("/categpory:category", getProductsByCategory)
+router.get("/categpory/:category", getProductsByCategory)
 
 
 export default router
