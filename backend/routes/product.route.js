@@ -12,4 +12,5 @@ router.delete("/:id", protectRoute, adminRoute, deleteProduct);
 router.get("/categpory/:category", getProductsByCategory)
 
 
+
 export default router

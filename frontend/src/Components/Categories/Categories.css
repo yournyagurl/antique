@@ -1,0 +1,132 @@
+.categories {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    max-width: 1200px;
+    margin: auto;
+    color: #fef2c3;
+    font-family: 'Cormorant Unicase', serif;
+}
+
+.categories-text {
+    flex: 1;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 40PX;
+}
+
+.categories-list {
+    display: flex;
+    gap: 30px;
+    flex: 2;
+    justify-content: center;
+}
+
+.category-item {
+    text-align: center;
+    text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit text color from parent */
+}
+
+.category-item img {
+    width: 275px;
+    height: 275px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.category-item img:hover {
+    transform: scale(1.1);
+}
+
+.category-item p {
+    color: #fef2c3;
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+@media (max-width: 1280px) {
+
+    .categories-text {
+      font-size: 24px;
+    }
+
+    .categories-list {
+      display: flex;
+      gap: 40px;
+    }
+  
+    .category-item img {
+      width: 150px;
+      height: 150px;
+    }
+  
+    .category-item p {
+      font-size: 18px;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+
+    .categories {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 50px;
+        max-width: 1200px;
+        margin: auto;
+        color: #fef2c3;
+    }
+
+    .categories-text {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+
+    }
+
+    .categories-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+        gap: 40px;}
+  
+    .category-item img {
+      width: 200px;
+      height: 200px;
+    }
+  
+    .category-item p {
+      font-size: 20px;
+    }
+  }
+  /* Further Adjustments for Smaller Screens */
+  @media (max-width: 700px) {
+
+    .categories {
+        padding: 10px;
+    }
+    .categories-text {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+    }
+  
+    .categories-list {
+      display: grid; /* Ensure it's a grid */
+      grid-template-columns: repeat(2, 1fr); /* 2 columns */
+      gap: 40px;
+    }
+  
+    .category-item img {
+      width: 100px;
+      height: 100px;
+    }
+  
+    .category-item p {
+      font-size: 20px;
+    }
+  }
+  

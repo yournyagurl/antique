@@ -1,0 +1,80 @@
+.hero {
+    width: 100%;
+    height: 80vh;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Banner Image */
+  .main-home-page-banner img {
+    width: 100%;
+    height: 80vh;
+    object-fit: cover;
+    display: block;
+  }
+  
+  /* Content Positioned at Center */
+  .content-appear {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border: 0.8px solid #fef2c3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Button Directly Beneath Text */
+  .content-appear h2,
+  .content-appear p {
+    margin: 0;
+    padding-bottom: 10px; /* Space between text and button */
+  }
+  
+  .info-button {
+    padding: 10px 20px;
+    font-family: 'Cormorant Unicase', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    background: #2c382f;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background 0.3s;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .info-button:hover {
+    background: #d9c08f;
+  }
+  
+  /* Responsive Design for Smaller Screens */
+  @media (max-width: 768px) {
+    .content-appear {
+      font-size: 1.2rem;
+    }
+  
+    .info-button {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .content-appear {
+      font-size: 1rem;
+    }
+  
+    .info-button {
+      font-size: 0.8rem;
+      padding: 8px 14px;
+    }
+  }
+  

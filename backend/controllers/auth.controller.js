@@ -82,7 +82,7 @@ export const login  = async (req, res,) => {
               
         }
         else {
-            res.status(401).json({message: "Invalid email or password"});
+            res.status(400).json({message: "Invalid email or password"});
         }
     } catch (error) {
         console.error("Login error:", error);
@@ -143,11 +143,10 @@ export const refreshToken  = async (req, res,) => {
 
 // TODO: implement get profile
 
-// export const getUser = async (req, res) => {
-//     try {
-//         const user = await User.findById(req.user.id).select("-password");
-//         res.status(200).json(user);
-//       } catch (error) {
-//         res.status(500).json({message: "Error fetching user", error});
-//       }
-// }
+export const getProfile = async (req, res) => {
+	try {
+		res.json(req.user);
+	} catch (error) {
+		res.status(500).json({ message: "Server error", error: error.message });
+	}
+};
