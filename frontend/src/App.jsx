@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import Navbar from './Components/Navbar/Navbar';
 import LoginPopup from './Components/loginPopup/loginPopup'; 
 import { Toaster } from 'react-hot-toast';
 import Footer from './Components/Footer/Footer';
-import { userUserStore } from './stores/useUserStore';
+import { useUserStore } from './stores/useUserStore';
 import Admin from './pages/Admin';
 import { Navigate } from 'react-router-dom';
 import AddProduct from './Components/AddProduct/AddProduct';
 import Shop from './pages/Shop';
 import Product from './pages/Product';
+import Cart from './pages/Cart/Cart';
+import { useCartStore } from './stores/useCartStore';
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
-  const { user } = userUserStore();
+  const { user, checkAuth } = useUserStore();
+	const { getCartItems } = useCartStore();
+	useEffect(() => {
+		checkAuth();
+	}, [checkAuth]);
+
+	useEffect(() => {
+		if (!user) return;
+
+		getCartItems();
+	}, [getCartItems, user]);
+  
 
 
   return (
@@ -37,6 +50,7 @@ function App() {
           <Route path='/shop/miscellaneous' element={<Shop category="Miscellaneous" />} />
           <Route path="/product" element={<Product />} /> {/* This can be the product listing page */}
           <Route path="/product/:productId" element={<Product />} /> {/* This will be for the product detail page */}
+          <Route path='/cart' element={<Cart />} />
           
         </Routes>
         <Footer />

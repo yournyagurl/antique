@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import ProductDisplay from '../Components/ProductDisplay/ProductDisplay';
 import { useProductStore } from '../stores/useProductStore';
 import { useParams } from 'react-router-dom';
+import Breadcrum from '../Components/Breadcrums/Breadcrum';
 
 const Product = () => {
   const { newCollection, products } = useProductStore(); // Fetch from store
@@ -24,6 +25,7 @@ const Product = () => {
 
   return (
     <div>
+      <Breadcrum />
       <ProductDisplay product={product} />
     </div>
   );

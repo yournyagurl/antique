@@ -1,6 +1,7 @@
 import emailModel from '../models/email.model.js';
 import enquiryModel from '../models/enquiry.model.js';
 import transporter from '../lib/nodeemailer.js';
+import productModel from '../models/product.model.js';
 
 export const subscribeToNewsletter = async (req, res) => {
   const { email } = req.body;
@@ -54,21 +55,37 @@ export const notifySubscribers = async (product) => {
 
 
 export const sendEnquiry = async (req, res) => {
-  const { firstName, lastName, email, phone, postcode, message } = req.body;
+  const { firstName, lastName, email, phone, postcode, message, productId } = req.body; // Add productId here
 
+  // Check if productId is present
+  if (!productId) {
+    return res.status(400).send('Product ID is required');
+  }
+  
+  // Check if all required fields are provided
   if (!firstName || !lastName || !email || !message) {
     return res.status(400).json({ success: false, message: 'All required fields must be filled.' });
   }
 
   try {
+    // Fetch the product using the productId
+    const product = await productModel.findById(productId); // Assuming you have a productModel for your products
+
+    if (!product) {
+      return res.status(400).json({ success: false, message: 'Product not found' });
+    }
+
+    const productName = product.name; // Assuming 'name' is the field for the product's name
+
+    // Create a new enquiry with productId included
     const newEnquiry = new enquiryModel({ firstName, lastName, email, phone, postcode, message, productId });
     await newEnquiry.save();
 
-    // Email to customer
+    // Send email to the customer
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
-      subject: 'Enquiry Received For Product `${product._id}`',
+      subject: `Enquiry Received For Product: ${productName}`, // Use productName here
       html: `
         Hello ${firstName},<br/><br/>
         Thank you for reaching out!<br/><br/>
@@ -78,12 +95,12 @@ export const sendEnquiry = async (req, res) => {
       `,
     });
 
-    // Email to business owner
+    // Send email to business owner
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_USER,
       subject: 'New Enquiry Received',
-      text: `New enquiry received from ${firstName} ${lastName} for product ${product._id}.
+      text: `New enquiry received from ${firstName} ${lastName} for product ${productName} (ID: ${productId}).
 Email: ${email}
 Phone: ${phone}
 Postcode: ${postcode}
@@ -92,10 +109,10 @@ Message:
 ${message}`,
     });
 
+    // Send success response to the frontend
     res.json({ success: true, message: 'Enquiry submitted successfully!' });
-  } catch (error) {
+} catch (error) {
     console.error('Error submitting enquiry:', error);
     res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
-  }
+}
 };
-

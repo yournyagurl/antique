@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './loginPopup.css';
 import { assets } from '../../assets/assets.js'; // Ensure you have the correct assets import
-import { userUserStore } from '../../stores/useUserStore.js';
+import { useUserStore } from '../../stores/useUserStore.js';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 
 const LoginPopup = () => {
@@ -12,7 +12,7 @@ const LoginPopup = () => {
     name: '', // This will be used for signup
   });
 
-  const { signup, login } = userUserStore();
+  const { signup, login } = useUserStore();
   const navigate = useNavigate(); // Initialize navigate
 
   const onChangeHandler = (e) => {

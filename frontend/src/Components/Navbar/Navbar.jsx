@@ -2,28 +2,27 @@ import React, {  useState } from 'react';
 import { assets } from '../../assets/assets.js';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import { userUserStore } from '../../stores/useUserStore.js';
+import { useUserStore } from '../../stores/useUserStore.js';
 import { useCartStore } from '../../stores/useCartStore.js';
 
 const Navbar = () => {
-  const {user, logout} = userUserStore();
+  const { user, logout } = useUserStore();
   let isAdmin = false;
 
-if (user && user.role && user.role.toLowerCase() === 'admin') {
-  isAdmin = true;
-}
+  // Ensure user is defined and has a role
+  if (user && user.role && user.role.toLowerCase() === 'admin') {
+    isAdmin = true;
+  }
 
-
-  {console.log('User info:', user)}
-{console.log('Is admin:', isAdmin)}
-
+  console.log('User info:', user); // Debug user info
+  console.log('Is admin:', isAdmin); // Debug isAdmin check
 
   const [menu, setMenu] = useState('Home');
   const [inventoryPage, setInventoryPage] = useState('fullCollection');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [inventoryDropdownOpen, setInventoryDropdownOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
-  const { calculateTotals } = useCartStore();
+  const { getCartItems } = useCartStore();
 
   const toggleProfileDropdown = () => {
     setProfileDropdownOpen((prev) => !prev);
@@ -74,7 +73,7 @@ if (user && user.role && user.role.toLowerCase() === 'admin') {
             <span className="cart-link">
               <Link to="/cart">
                 <img src={assets.cart} alt="Cart" />
-                {calculateTotals > 0 && <span className="cart-indicator"></span>}
+                {getCartItems.length > 0 && <span className="cart-indicator"></span>}
               </Link>
             </span>
           </div>

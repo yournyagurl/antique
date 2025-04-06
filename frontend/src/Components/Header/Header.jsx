@@ -1,12 +1,11 @@
 import React from 'react'
 import './Header.css'
-import { assets } from '../../assets/assets'
 
 const Header = () => {
   return (
     <div className='hero'>
         <div className='main-home-page-banner'>
-            <img src={assets.banner} alt='banner'/>
+            <img src="https://res.cloudinary.com/dtqvxfc7w/image/upload/v1743890233/antique-plate-display-stockcake_jyfwwo.jpg" alt='banner'/>
         </div>
         <div className="content-appear">
 			 		<h2>WELCOME</h2>
