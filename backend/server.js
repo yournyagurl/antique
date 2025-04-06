@@ -9,6 +9,20 @@ import cartRoutes from "./routes/cart.route.js";
 import paymentRoutes from "./routes/payment.route.js";
 import analyticsRoutes from "./routes/analytics.route.js";
 import { connectDb } from "./lib/db.js";
+import cors from "cors";
+
+// Define allowed origins (for dev and production)
+const allowedOrigins = [
+  "http://localhost:5173",               // Dev Vite frontend
+  "https://antique-1.onrender.com",     // Your deployed frontend
+];
+
+// Use CORS middleware
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true, // Important if you’re sending cookies or auth headers
+}));
+
 
 dotenv.config();
 const app = express();
