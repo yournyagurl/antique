@@ -17,15 +17,16 @@ const allowedOrigins = [
   "https://antique-1.onrender.com",     // Your deployed frontend
 ];
 
+
+dotenv.config();
+const app = express();
+
 // Use CORS middleware
 app.use(cors({
   origin: allowedOrigins,
   credentials: true, // Important if you’re sending cookies or auth headers
 }));
 
-
-dotenv.config();
-const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
