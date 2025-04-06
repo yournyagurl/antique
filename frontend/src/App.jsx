@@ -52,7 +52,6 @@ function App() {
           <Route path="/product" element={<Product />} /> {/* This can be the product listing page */}
           <Route path="/product/:productId" element={<Product />} /> {/* This will be for the product detail page */}
           <Route path='/cart' element={<Cart />} />
-          <Route path='/order' element={<PlaceOrder />} />
           
         </Routes>
         <Footer />
