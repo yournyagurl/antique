@@ -13,7 +13,6 @@ import Shop from './pages/Shop';
 import Product from './pages/Product';
 import Cart from './pages/Cart/Cart';
 import { useCartStore } from './stores/useCartStore';
-import PlaceOrder from './pages/PlaceOrder/placeOrder';
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
