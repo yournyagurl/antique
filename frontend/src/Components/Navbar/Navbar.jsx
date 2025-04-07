@@ -1,9 +1,8 @@
-import React, {  useState, useEffect } from 'react';
+import React, {  useState } from 'react';
 import { assets } from '../../assets/assets.js';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import { useUserStore } from '../../stores/useUserStore.js';
-import { useCartStore } from '../../stores/useCartStore.js';
 
 const Navbar = () => {
   const { user, logout } = useUserStore();
@@ -12,19 +11,13 @@ const Navbar = () => {
   if (user && user.user && user.user.role?.toLowerCase() === 'admin') {
     isAdmin = true;
   }
-  
-
-  
-
-  console.log('User info:', user); // Debug user info
-  console.log('Is admin:', isAdmin); // Debug isAdmin check
+ 
 
   const [menu, setMenu] = useState('Home');
   const [inventoryPage, setInventoryPage] = useState('fullCollection');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [inventoryDropdownOpen, setInventoryDropdownOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
-  const { getCartItems } = useCartStore();
 
   const toggleProfileDropdown = () => {
     setProfileDropdownOpen((prev) => !prev);
@@ -61,7 +54,7 @@ const Navbar = () => {
 
                   {profileDropdownOpen && (
                     <div className="profile-dropdown">
-                      <Link to="/orders">Orders</Link>
+                      <Link to="/myorders">Orders</Link>
                       <hr />
                       <Link onClick={logout}>Logout</Link>
                       <hr />
@@ -75,7 +68,6 @@ const Navbar = () => {
             <span className="cart-link">
               <Link to="/cart">
                 <img src={assets.cart} alt="Cart" />
-                {getCartItems.length > 0 && <span className="cart-indicator"></span>}
               </Link>
             </span>
           </div>

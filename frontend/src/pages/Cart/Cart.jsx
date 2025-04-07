@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useCartStore } from '../../stores/useCartStore';
 import './Cart.css';
 import { assets } from '../../assets/assets';
-import { loadStripe } from '@stripe/stripe-js';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../lib/axios';
 
 const Cart = () => {
-  const { cart, removeFromCart, getTotalCartAmount, getTotalShippingFee, clearCart, getCartItems } = useCartStore();
-  const [paymentError, setPaymentError] = useState(null);
+  const { cart, removeFromCart, getTotalCartAmount, getTotalShippingFee, getCartItems } = useCartStore();
+  const [paymentError] = useState(null);
 
   const isCartEmpty = cart.length === 0;
 

@@ -1,88 +1,96 @@
-import Order from "../models/order.model.js";
-import { stripe } from "../lib/stripe.js";
+import Order from "../models/order.model.js"; // Import the order model
+import Product from "../models/product.model.js"; // Import the product model
+import Stripe from "stripe"; // Stripe for handling payments
+import dotenv from "dotenv";
 
-export const createCheckoutSession = async (req, res) => {
-	try {
-		const { products } = req.body;
+dotenv.config();
 
-		if (!Array.isArray(products) || products.length === 0) {
-			return res.status(400).json({ error: "Invalid or empty products array" });
-		}
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-		let totalAmount = 0;
+export const placeOrder = async (req, res) => {
+    console.log("Received /payment/place-order request:", req.body); // Log the incoming request
 
-		const lineItems = products.map((product) => {
-			const amount = Math.round(product.price * 100); // stripe wants u to send in the format of cents
-			totalAmount += amount * product.quantity;
+    try {
+        const { products, shippingInfo, totalAmount } = req.body;
+        const userId = req.user._id;
 
-			return {
-				price_data: {
-					currency: "usd",
-					product_data: {
-						name: product.name,
-						image: [product.image],
-					},
-					unit_amount: amount,
-				},
-				quantity: product.quantity || 1,
-			};
-		});
+        const lineItems = [];
+        let calculatedTotalAmount = 0;
 
+        for (let item of products) {
+            const product = await Product.findById(item.product);
+            if (!product) {
+                console.log("Product not found:", item.product); // Log if product not found
+                return res.status(400).json({ message: `Product not found: ${item.product}` });
+            }
+            if (!item.quantity || typeof item.quantity !== 'number' || item.quantity <= 0) {
+                console.log("Invalid quantity:", item); // Log invalid quantity
+                return res.status(400).json({ message: `Invalid quantity for product: ${product.name}` });
+            }
+            lineItems.push({
+                price_data: {
+                    currency: "gbp",
+                    product_data: {
+                        name: product.name,
+                    },
+                    unit_amount: product.price * 100,
+                },
+                quantity: item.quantity,
+            });
+            calculatedTotalAmount += product.price * item.quantity;
+        }
 
-		const session = await stripe.checkout.sessions.create({
-			payment_method_types: ["card"],
-			line_items: lineItems,
-			mode: "payment",
-			success_url: `${process.env.CLIENT_URL}/purchase-success?session_id={CHECKOUT_SESSION_ID}`,
-			cancel_url: `${process.env.CLIENT_URL}/purchase-cancel`,
-			metadata: {
-				userId: req.user._id.toString(),
-				products: JSON.stringify(
-					products.map((p) => ({
-						id: p._id,
-						quantity: 1,
-						price: p.price,
-					}))
-				),
-			},
-		});
-		res.status(200).json({ id: session.id, totalAmount: totalAmount / 100 });
-	} catch (error) {
-		console.error("Error processing checkout:", error);
-		res.status(500).json({ message: "Error processing checkout", error: error.message });
-	}
+        if (calculatedTotalAmount !== totalAmount) {
+            console.log("Total amount mismatch:", calculatedTotalAmount, totalAmount); // Log amount mismatch
+            return res.status(400).json({ message: "Total amount mismatch" });
+        }
+
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ["card"],
+            line_items: lineItems,
+            mode: "payment",
+            success_url: `${process.env.CLIENT_URL}/myorders`,
+            cancel_url: `${process.env.CLIENT_URL}/order/cancel`,
+            client_reference_id: userId.toString(),
+        });
+
+        console.log("Stripe Session created:", session); // Log the session object
+
+        const newOrder = new Order({
+            user: userId,
+            products: await Promise.all(products.map(async (item) => ({
+                product: item.product,
+                price: (await Product.findById(item.product))?.price || 0,
+            }))),
+            totalAmount,
+            stripeSessionId: session.id,
+            shippingInfo,
+        });
+
+        console.log("New Order object created:", newOrder); // Log the order object
+
+        await newOrder.save();
+
+        console.log("Order saved. Sending URL:", session.url); // Log before sending the URL
+        return res.json({ url: session.url }); // Explicitly return the JSON response
+
+    } catch (error) {
+        console.error("Error in placeOrder:", error); // Log the full error
+        return res.status(500).json({ message: "Internal server error", error: error.message }); // Include error message in response
+    }
 };
 
-export const checkoutSuccess = async (req, res) => {
+export const getUserOrders = async (req, res) => {
 	try {
-		const { sessionId } = req.body;
-		const session = await stripe.checkout.sessions.retrieve(sessionId);
-
-		if (session.payment_status === "paid") {
-			// create a new Order
-			const products = JSON.parse(session.metadata.products);
-			const newOrder = new Order({
-				user: session.metadata.userId,
-				products: products.map((product) => ({
-					product: product.id,
-					quantity: product.quantity,
-					price: product.price,
-				})),
-				totalAmount: session.amount_total / 100, // convert from cents to dollars,
-				stripeSessionId: sessionId,
-			});
-
-			await newOrder.save();
-
-			res.status(200).json({
-				success: true,
-				message: "Payment successful, order created, and coupon deactivated if used.",
-				orderId: newOrder._id,
-			});
-		}
+	  const userId = req.user._id; // Assuming your authentication middleware adds user info to req.user
+  
+	  const orders = await Order.find({ user: userId }).sort({ createdAt: -1 }); // Find orders by user, sort by most recent
+  
+	  res.status(200).json(orders);
 	} catch (error) {
-		console.error("Error processing successful checkout:", error);
-		res.status(500).json({ message: "Error processing successful checkout", error: error.message });
+	  console.error("Error fetching user orders:", error);
+	  res.status(500).json({ message: "Failed to fetch user orders" });
 	}
-};
+  };
+  
 

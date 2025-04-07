@@ -13,6 +13,8 @@ import Shop from './pages/Shop';
 import Product from './pages/Product';
 import Cart from './pages/Cart/Cart';
 import { useCartStore } from './stores/useCartStore';
+import PlaceOrder from './pages/placeOrder/placeOrder';
+import UserOrders from './pages/UserOrders/UserOrder';
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -63,6 +65,8 @@ function App() {
           <Route path="/product" element={<Product />} /> {/* This can be the product listing page */}
           <Route path="/product/:productId" element={<Product />} /> {/* This will be for the product detail page */}
           <Route path='/cart' element={<Cart />} />
+          <Route path='/order' element={<PlaceOrder />} />
+          <Route path='/myorders' element={<UserOrders />} />
           
         </Routes>
         <Footer />
