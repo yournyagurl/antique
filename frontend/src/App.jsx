@@ -16,7 +16,7 @@ import { useCartStore } from './stores/useCartStore';
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
-  const { user, checkAuth } = useUserStore();
+  const { user, checkAuth, checkingAuth } = useUserStore();
 	const { getCartItems } = useCartStore();
 	useEffect(() => {
 		checkAuth();
@@ -41,7 +41,19 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPopup />} />
-          <Route path='/secret-dashboard' element = {user?.role === "admin" ? <Admin/> : <Navigate to="/login"/>} />
+          <Route
+  path="/secret-dashboard"
+  element={
+    checkingAuth ? (
+      <div>Loading...</div> // You can replace this with a spinner later
+    ) : user?.user?.role === "admin" ? (
+      <Admin />
+    ) : (
+      <Navigate to="/login" />
+    )
+  }
+/>
+
           <Route path = '/add' element={<AddProduct />} />
           <Route path='/shop' element={<Shop />} />
           <Route path='/shop/furniture' element={<Shop category="Furniture" />} />

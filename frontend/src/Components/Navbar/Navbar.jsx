@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, {  useState, useEffect } from 'react';
 import { assets } from '../../assets/assets.js';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
@@ -7,12 +7,14 @@ import { useCartStore } from '../../stores/useCartStore.js';
 
 const Navbar = () => {
   const { user, logout } = useUserStore();
-  let isAdmin = false;
-
   // Ensure user is defined and has a role
-  if (user && user.role && user.role.toLowerCase() === 'admin') {
+  let isAdmin = false;
+  if (user && user.user && user.user.role?.toLowerCase() === 'admin') {
     isAdmin = true;
   }
+  
+
+  
 
   console.log('User info:', user); // Debug user info
   console.log('Is admin:', isAdmin); // Debug isAdmin check

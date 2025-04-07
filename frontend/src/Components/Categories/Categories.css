@@ -14,7 +14,15 @@
     font-size: 2rem;
     font-weight: bold;
     padding: 40PX;
+    text-align: left;
 }
+
+
+.categories-text h1 {
+  text-align: left;
+  text-decoration: none;
+}
+
 
 .categories-list {
     display: flex;

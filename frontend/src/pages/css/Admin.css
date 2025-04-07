@@ -4,7 +4,7 @@
   
   .admin-tab-menu {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     list-style: none;
     padding: 0;
   }
@@ -12,20 +12,24 @@
   .admin-tab-button {
     padding: 10px 20px;
     cursor: pointer;
+    margin: 0 10px;
     font-weight: bold;
     border: 1px solid #ccc;
     border-radius: 5px;
     transition: background-color 0.3s;
+    background-color: #2c382f;
+    color: #fef2c3;
   }
   
   .admin-tab-button:hover {
-    background-color: #f0f0f0;
+    background-color: #fef2c3;
+    color: #2c382f;
   }
   
   .admin-tab-button.active {
-    background-color: #4CAF50;
-    color: white;
-    border-color: #4CAF50;
+    background-color: #fef2c3;
+    color: #2c382f;
+    border-color: #2c382f;
   }
   
   .admin-content {

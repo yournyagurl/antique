@@ -11,7 +11,7 @@ const Header = () => {
 			 		<h2>WELCOME</h2>
 					<p>to</p>
           <h1>STOKES</h1>
-          <h2> INTERIORS AND COLLECTIBLES</h2>
+          <h2> ANTIQUES AND COLLECTIBLES</h2>
           <button className='info-button' onClick={() => window.location.href = '/inventory'}>VIEW COLLECTION</button>
 				</div>
     </div>
