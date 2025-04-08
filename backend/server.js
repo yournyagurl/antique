@@ -14,7 +14,7 @@ import cors from "cors";
 // Define allowed origins (for dev and production)
 const allowedOrigins = [
   "http://localhost:5173",               // Dev Vite frontend
-  "https://antique-1.onrender.com",     // Your deployed frontend
+  "https://stokesantiquesandcollectibles-94ul.onrender.com",     // Your deployed frontend
 ];
 
 
