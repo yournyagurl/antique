@@ -31,7 +31,7 @@ const LoginPopup = () => {
       navigate('/'); // Redirect to homepage
     } else {
       console.log('Signing up with:', data);
-      await signup(data.name, data.email, data.password);  // Wait for signup to finish
+      await signup(data);  // Wait for signup to finish
     }
   };
 

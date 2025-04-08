@@ -3,8 +3,7 @@ import { useCartStore } from '../../stores/useCartStore';
 import axios from '../../lib/axios'; // Assuming your axios instance is configured here
 
 const CheckoutPage = () => {
-    const cart = useCartStore((state) => state.cart);
-    const total = useCartStore((state) => state.total);
+    const { cart, getTotalCartAmount, getTotalShippingFee, total } = useCartStore();
     const clearCart = useCartStore((state) => state.clearCart);
     const [shippingInfo, setShippingInfo] = useState({
         firstName: '',
@@ -37,7 +36,7 @@ const CheckoutPage = () => {
                 quantity: item.quantity,
             })),
             shippingInfo: shippingInfo,
-            totalAmount: total,
+            totalAmount: getTotalCartAmount() + getTotalShippingFee()
         };
 
         try {
@@ -164,7 +163,10 @@ const CheckoutPage = () => {
                 {cart.map(item => (
                     <li key={item._id}>
                         {item.name} x {item.quantity} - £{(item.price * item.quantity).toFixed(2)}
+
+                        <p>Shipping Fee: £{getTotalShippingFee().toFixed(2)}</p>
                     </li>
+
                 ))}
             </ul>
             <p>Total: £{total.toFixed(2)}</p>
