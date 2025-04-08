@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../lib/axios'; // Assuming your axios instance
-import { Link } from 'react-router-dom'; // If you want to link to order details
+import { Link } from 'react-router-dom'; // For navigation
 import './myOrders.css';
 import { useProductStore } from '../../stores/useProductStore';
 
@@ -17,8 +17,7 @@ const MyOrders = () => {
             try {
                 const response = await axios.get('/payment/myorder', {
                     headers: {
-                        // Include your authentication token here if required by your backend
-                        // 'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                        // Include your authentication token
                     },
                 });
                 setOrders(response.data);
@@ -29,14 +28,13 @@ const MyOrders = () => {
             }
         };
 
-        // Fetch user orders
         fetchUserOrders();
 
         // Ensure all products are fetched for name lookup
         if (products.length === 0 && !loadingProducts) {
             fetchAllProducts();
         }
-    }, [fetchAllProducts, loadingProducts]); // Depend on fetchAllProducts to re-run if needed
+    }, [fetchAllProducts, loadingProducts]);
 
     if (loadingOrders || loadingProducts) {
         return <div>Loading your order history and product details...</div>;
@@ -52,37 +50,51 @@ const MyOrders = () => {
 
     const getProductName = (productId) => {
         const product = products.find((p) => p._id === productId);
-        return product ? product.name : 'Product Not Found'; // Handle case where product might be deleted
+        return product ? product.name : 'Product Not Found';
     };
 
     return (
         <div className="user-orders-container">
             <h2>Your Order History</h2>
             {orders.map((order) => (
-                <div key={order._id} className="order-item">
-                    <div className='Order-Top'>
-                        <div className='Order-id-and-date'>
-                            <h4>Order ID: #{order._id.slice(-6)}</h4>
-                            <p>Order Date: {new Date(order.createdAt).toLocaleDateString()} {new Date(order.createdAt).toLocaleTimeString()}</p>
+                <div key={order._id} className="order-summary-card">
+                    <div className="order-header-summary">
+                        <div className="order-info-summary">
+                        <p className="order-number">Order #{order._id.slice(-8)}</p>
+                           
+                            <p>Total Amount: £{order.totalAmount}</p>
+                            <p>Ship To: {order.shippingInfo?.city}, {order.shippingInfo?.country}</p>
                         </div>
-                        <div className='Order-Status'>
-                            <p>Status: {order.status}</p>
+                        <div className="order-actions-summary">
+                        <p>Order Date: {new Date(order.createdAt).toLocaleDateString()}</p>
+                        <p>Order Status: {order.status}</p>
                         </div>
-                    </div>
-                    <hr />
-                    <div className='Order-Products'>
-                        <h4>Products:</h4>
-                        <ul>
-                            {order.products.map((item) => (
-                                <li key={item._id}>
-                                    {getProductName(item.product)} - Price: £{item.price}
-                                </li>
-                            ))}
-                        </ul>
                     </div>
 
-                    <div className='Order-Total'>
-                        <h4>Total: £{order.totalAmount}</h4>
+                    {order.deliveredAt && (
+                        <div className="delivery-info">
+                            Delivered {new Date(order.deliveredAt).toLocaleDateString()}
+                        </div>
+                    )}
+
+                    <div className="order-items">
+                        {order.products.map((item) => (
+                            <div key={item._id} className="order-item-details">
+                                {/* Assuming your backend returns an image URL in item.product.image */}
+                                {item.product?.image && (
+                                    <img src={item.product.image} alt={getProductName(item.product)} className="product-thumbnail" />
+                                )}
+                                <div className="product-details">
+                                    <h4 className="product-name">{getProductName(item.product)}</h4>
+                                    <p className="product-price">Price: £{item.price}</p>
+                                    {/* Add return/replace info if available in your data */}
+                                    {/* <p className="return-info">Return or Replace items: Eligible through ...</p> */}
+                                    <div className="product-actions">
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             ))}

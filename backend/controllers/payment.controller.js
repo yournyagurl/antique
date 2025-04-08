@@ -176,3 +176,40 @@ export const getUserOrders = async (req, res) => {
       res.status(500).json({ message: "Failed to fetch user orders" });
     }
   };
+
+  export const getAllOrders = async (req, res) => {
+    try {
+        const allOrders = await Order.find().sort({ createdAt: -1 }).populate('user', 'firstName lastName email').populate('products.product', 'name image');
+
+        res.status(200).json(allOrders);
+    } catch (error) {
+        console.error("Error fetching all orders:", error);
+        res.status(500).json({ message: "Failed to fetch all orders" });
+    }
+};
+
+export const updateOrderStatus = async (req, res) => {
+    try {
+        const { orderId, status } = req.body;
+
+        if (!orderId || !status) {
+            return res.status(400).json({ message: "Order ID and status are required" });
+        }
+
+        const updatedOrder = await Order.findByIdAndUpdate(
+            orderId,
+            { status },
+            { new: true, runValidators: true } // new: true returns the modified document, runValidators ensures schema validation
+        );
+
+        if (!updatedOrder) {
+            return res.status(404).json({ message: "Order not found" });
+        }
+
+        res.status(200).json({ message: "Order status updated successfully", order: updatedOrder });
+
+    } catch (error) {
+        console.error("Error updating order status:", error);
+        res.status(500).json({ message: "Failed to update order status", error: error.message });
+    }
+};
