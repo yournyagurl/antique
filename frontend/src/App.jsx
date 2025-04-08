@@ -16,6 +16,8 @@ import { useCartStore } from './stores/useCartStore';
 import PlaceOrder from './pages/placeOrder/placeOrder';
 import OrderConfirmation from './pages/UserOrders/OrderConfirmation';
 import MyOrders from './pages/myOrders/myOrders';
+import AboutPage from './pages/AboutMe/AboutMe';
+import Contact from './pages/Contact/Contact';
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -69,7 +71,8 @@ function App() {
           <Route path='/order' element={<PlaceOrder />} />
           <Route path='/confirmorder' element={<OrderConfirmation />} />
           <Route path="/myorders" element={<MyOrders/>} />
-          
+          <Route path="/about" element={<AboutPage />} />
+          <Route path='/contact' element={<Contact />} />
         </Routes>
         <Footer />
       </div>

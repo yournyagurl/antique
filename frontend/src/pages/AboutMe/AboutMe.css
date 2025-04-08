@@ -1,0 +1,29 @@
+/* Styling for the AboutPage component */
+.about-page {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 800px;
+    font-family: 'Cormorant Unicase', serif;
+    color: #fef2c3; /* Light yellowish color */
+  }
+  
+  .about-page h1 {
+    text-align: center;
+    color: #fef2c3; /* Darker color for the heading for contrast */
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  
+  .about-page p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #fef2c3; /* Lighter color for paragraphs for contrast */
+  }
+  
+  /* Optional: Add some spacing or border for visual appeal */
+  .about-page p:last-child {
+    margin-bottom: 0;
+  }
+  
