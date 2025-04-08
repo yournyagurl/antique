@@ -54,6 +54,7 @@ const CheckoutPage = () => {
 
             const { url } = response.data;
             window.location.href = url;
+            clearCart();
         } catch (err) {
             console.error('Checkout error:', err);
             setError(err.response?.data?.message || err.message || 'An unexpected error occurred');

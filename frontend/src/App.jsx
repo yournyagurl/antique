@@ -15,6 +15,7 @@ import Cart from './pages/Cart/Cart';
 import { useCartStore } from './stores/useCartStore';
 import PlaceOrder from './pages/placeOrder/placeOrder';
 import OrderConfirmation from './pages/UserOrders/OrderConfirmation';
+import MyOrders from './pages/myOrders/myOrders';
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -67,6 +68,7 @@ function App() {
           <Route path='/cart' element={<Cart />} />
           <Route path='/order' element={<PlaceOrder />} />
           <Route path='/confirmorder' element={<OrderConfirmation />} />
+          <Route path="/myorders" element={<MyOrders/>} />
           
         </Routes>
         <Footer />
