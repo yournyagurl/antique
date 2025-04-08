@@ -26,7 +26,7 @@ const LoginPopup = () => {
     e.preventDefault();
     if (currentView === 'LOGIN') {
       // Add your login logic here
-      console.log('Logging in with:', data);
+      console.log('Logging in with:', data, data.refreshToken);
       await login(data.email, data.password);
       navigate('/'); // Redirect to homepage
     } else {

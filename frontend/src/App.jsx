@@ -21,7 +21,7 @@ import Contact from './pages/Contact/Contact';
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
-  const { user, checkAuth, checkingAuth } = useUserStore();
+  const { user, checkAuth } = useUserStore();
 	const { getCartItems } = useCartStore();
 	useEffect(() => {
 		checkAuth();
@@ -49,9 +49,7 @@ function App() {
           <Route
   path="/secret-dashboard"
   element={
-    checkingAuth ? (
-      <div>Loading...</div> // You can replace this with a spinner later
-    ) : user?.user?.role === "admin" ? (
+     user?.user?.role === "admin" ? (
       <Admin />
     ) : (
       <Navigate to="/login" />
