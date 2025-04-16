@@ -26,22 +26,25 @@ const Admin = () => {
 
 
       {/* Navigation Tabs */}
-      <div className="admin-tab-container">
-        <ul className="admin-tab-menu">
-          <li onClick={() => changeTab('addproducts')} className={`admin-tab-button ${activeTab === 'addproducts' ? 'active' : ''}`}>
-            ADD PRODUCTS
-          </li>
-          <li onClick={() => changeTab('list')} className={`admin-tab-button ${activeTab === 'list' ? 'active' : ''}`}>
-            LIST PRODUCTS
-          </li>
-          <li onClick={() => changeTab('pending')} className={`admin-tab-button ${activeTab === 'pending' ? 'active' : ''}`}>
-            PENDING
-          </li>
-          <li onClick={() => changeTab('completed')} className={`admin-tab-button ${activeTab === 'completed' ? 'active' : ''}`}>
-            COMPLETED
-          </li>
-        </ul>
-      </div>
+      import { Link } from 'react-router-dom';
+
+<div className="admin-tab-container">
+  <ul className="admin-tab-menu">
+    <li className={`admin-tab-button ${activeTab === 'addproducts' ? 'active' : ''}`}>
+      <Link to="/admin/addproducts">ADD PRODUCTS</Link>
+    </li>
+    <li className={`admin-tab-button ${activeTab === 'list' ? 'active' : ''}`}>
+      <Link to="/admin/list">LIST PRODUCTS</Link>
+    </li>
+    <li className={`admin-tab-button ${activeTab === 'pending' ? 'active' : ''}`}>
+      <Link to="/admin/pending">PENDING</Link>
+    </li>
+    <li className={`admin-tab-button ${activeTab === 'completed' ? 'active' : ''}`}>
+      <Link to="/admin/completed">COMPLETED</Link>
+    </li>
+  </ul>
+</div>
+
 
       {/* Content Area for Displaying Components Based on Active Tab */}
       <div className="admin-content">
