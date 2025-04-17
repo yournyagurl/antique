@@ -12,15 +12,15 @@ const ContactPage = () => {
           <p>
             <strong>Stokes Antiques & Collectibles</strong>
           </p>
-          <p>123 Antique Lane, London, UK</p>
-          <p>Postal Code: AB12 3CD</p>
+          <p>Unit 3, Argoed Business Park, Chester Road</p>
+          <p>Postal Code: CH7 1UE</p>
 
           <h2>Contact Information</h2>
           <p>
-            <strong>Phone:</strong> +44 1234 567890
+            <strong>Phone:</strong> +44 07368 520816
           </p>
           <p>
-            <strong>Email:</strong> <a href="mailto:info@stokesantiques.com">info@stokesantiques.com</a>
+            <strong>Email:</strong> <a href="mailto:info@stokesantiques.com">stokesinteriorsandcollectibles@gmail.com</a>
           </p>
           
           <h2>Business Hours</h2>
